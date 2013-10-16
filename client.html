@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" 
+					src="http://localhost:8000/faye/client.js">
+	</script>
+
+</head>
+<body>
+<script type="text/javascript">
+  var client = new Faye.Client('http://localhost:8000/faye');
+
+  // simulating user_id randomness 
+  var user_id = Math.floor(Math.random()*(2));
+  console.log(user_id);
+
+	client.subscribe("/messages/new", function(data) {
+		if (user_id == data) {
+			alert("user_id is" + data + "!!! here's your data: " + data);
+			console.log('recieved msg');
+		}
+		else {
+			alert("sorry user is unathorized to see data");
+		}
+	});
+
+	client.subscribe("/messages", function(data) {
+		alert(data);
+		console.log('recieved msg');
+	});
+
+
+</script>
+hello
+</body>
+</html>
